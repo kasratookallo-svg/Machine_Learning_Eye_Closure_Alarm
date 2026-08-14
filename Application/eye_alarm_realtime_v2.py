@@ -609,7 +609,7 @@ while True:
 
             (20, 45),
 
-            cv2.FONT_HERSHEY_SIMPLEX,
+            cv2.FONT_HERSHEY_DUPLEX,
 
             0.9,
 
@@ -630,7 +630,7 @@ while True:
 
             (20, 78),
 
-            cv2.FONT_HERSHEY_SIMPLEX,
+            cv2.FONT_HERSHEY_DUPLEX,
 
             0.6,
 
@@ -651,7 +651,7 @@ while True:
 
             (20, 110),
 
-            cv2.FONT_HERSHEY_SIMPLEX,
+            cv2.FONT_HERSHEY_DUPLEX,
 
             0.6,
 
@@ -672,7 +672,7 @@ while True:
 
             (20, 142),
 
-            cv2.FONT_HERSHEY_SIMPLEX,
+            cv2.FONT_HERSHEY_DUPLEX,
 
             0.6,
 
@@ -695,7 +695,7 @@ while True:
 
                 (20, 178),
 
-                cv2.FONT_HERSHEY_SIMPLEX,
+                cv2.FONT_HERSHEY_DUPLEX,
 
                 0.65,
 
