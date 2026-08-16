@@ -1,92 +1,23 @@
-# Real-Time Eye Open / Closed Detection
+# Machine Learning Eye Closure Alarm
 
-A real-time eye state detection system using **OpenCV**, **MediaPipe Face Mesh**, and **Random Forest**.
+A real-time computer vision system that detects whether a person's eyes are **open** or **closed** using a webcam, MediaPipe Face Mesh, and a trained Random Forest classifier. When closed eyes are detected continuously for about **one second**, the application triggers an audio alarm.
 
-The system detects whether the eyes are:
+## 🚨 Features
 
-- OPEN
-- CLOSED
+- 🎥 Real-time webcam inference
+- 👁️ Facial landmark detection with **MediaPipe Face Mesh**
+- 📐 Geometric eye-feature extraction
+- 🤖 Random Forest classification (`OPEN` / `CLOSED`)
+- 🧠 Majority-vote temporal smoothing over a 5-frame window
+- ⏰ Alarm trigger after ~1 second of continuous closed-eye detection
+- 📊 On-screen status overlay (prediction, probabilities, EAR, alarm state)
 
-It processes webcam frames in real time, extracts geometric eye features from MediaPipe facial landmarks, classifies the eye state using a trained Random Forest model, applies temporal smoothing using majority voting, and triggers an audio alarm when the eyes remain closed for approximately one second.
+## 🔄 How It Works
 
----
-
-## 1. Project Overview
-
-The objective of this project is to develop a real-time computer vision system capable of detecting eye closure from a standard webcam.
-
-The project combines:
-
-- Computer Vision
-- Facial Landmark Detection
-- Feature Engineering
-- Machine Learning
-- Real-Time Classification
-- Temporal Signal Processing
-- Audio Alert
-
-The system is designed as a modular pipeline:
-
-Webcam → Face Mesh → Eye Landmarks → Feature Extraction → Random Forest → Temporal Filtering → Alarm
-
----
-
-## 2. System Architecture
-
-```text
-                     ┌─────────────────┐
-                     │     Webcam      │
-                     └────────┬────────┘
-                              │
-                              ▼
-                     ┌─────────────────┐
-                     │     OpenCV      │
-                     │ Frame Capture   │
-                     └────────┬────────┘
-                              │
-                              ▼
-                  ┌──────────────────────┐
-                  │  MediaPipe Face Mesh │
-                  │  Facial Landmarks    │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │   Eye Landmark       │
-                  │   Extraction         │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Feature Extraction   │
-                  │                      │
-                  │ 9 Features           │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │   Random Forest      │
-                  │    Classifier        │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                    ┌─────────────────┐
-                    │ OPEN / CLOSED   │
-                    └────────┬────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Temporal Filtering   │
-                  │ Majority Voting      │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                  ┌──────────────────────┐
-                  │ Closed-Eye Timer     │
-                  │ ~ 1 Second           │
-                  └──────────┬───────────┘
-                             │
-                             ▼
-                     ┌──────────────┐
-                     │ Audio Alarm  │
-                     └──────────────┘
+1. **Capture** frames from the webcam.
+2. **Detect** facial landmarks using MediaPipe Face Mesh.
+3. **Extract** 9 eye-related geometric features.
+4. **Classify** the eye state with a pretrained Random Forest model.
+5. **Smooth** predictions with a 5-frame majority vote.
+6. **Start** a closed-eye timer when the state is `CLOSED`.
+7. **Trigger** an audio alarm if closure lasts about 1 second.
