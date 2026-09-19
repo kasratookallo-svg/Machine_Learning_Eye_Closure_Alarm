@@ -11,12 +11,6 @@ A real-time Computer Vision system designed to monitor eye state (Open/Closed) a
 - **Temporal Smoothing:** Implements a 5-frame "majority vote" window to prevent flickering and false alarms.
 - **Visual & Audio Feedback:** On-screen status overlay (EAR, prediction, alarm status) + audible alert.
 
-## 🛠 Prerequisites
-
-Ensure you have Python 3.8+ installed. You will need the following libraries:
-```bash
-pip install opencv-python mediapipe scikit-learn numpy
-
 ## 🔬 Technical Deep Dive
 
 ## 📐 9-Feature Geometry
@@ -37,3 +31,11 @@ We utilize a dual-model approach to ensure reliability:
 2. **Support Vector Machine (Secondary/Comparison):** Trained in parallel to compare baseline performance. We use the SVM for cross-validation to ensure the Random Forest is not overfitting to specific lighting conditions.
 
 *This approach allows us to choose the most robust classifier for real-time inference.*
+
+
+## 🛠 Prerequisites
+
+Ensure you have Python 3.8+ installed. You will need the following libraries:
+```bash
+pip install opencv-python mediapipe scikit-learn numpy
+
