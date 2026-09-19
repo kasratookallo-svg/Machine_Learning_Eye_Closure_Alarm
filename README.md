@@ -26,10 +26,13 @@ We have implemented a data cleaning pipeline to ensure model robustness:
 - **Suspicious Samples:** Identifying and removing frames where landmark detection is inconsistent or logically impossible (e.g., implausible aspect ratios), ensuring the Random Forest only trains on clean, reliable data.
 
 ## 🧠 Model Training Strategy
-To ensure maximum accuracy and robustness, we have developed and compared two distinct machine learning models:
+To understand the impact of data quality on predictive performance, we trained two separate **Random Forest** models using different datasets:
 
-1. **Random Forest Classifier (Primary):** Selected for its high performance on structured geometric data, ability to handle non-linear relationships, and interpretability. We employed Grid Search to optimize hyperparameters like `n_estimators` and `max_depth`.
-2. **Support Vector Machine (Comparison/Validation):** Trained in parallel as a secondary model to benchmark baseline performance. This dual-model approach allows us to cross-validate results and ensure the primary model is not overfitting to specific lighting conditions or facial structures.
+1. **Model A (Clean Dataset - 995 Samples):** Trained on a curated dataset where outliers and suspicious samples were filtered out. This model focuses on high precision and reliability.
+2. **Model B (Full Dataset - 1000 Samples):** Trained on the raw dataset including all samples. This serves as a baseline to quantify the performance gain achieved through our data-cleaning pipeline.
+
+*This comparison allows us to validate the effectiveness of our pre-processing steps and ensures that our final real-time model is not biased by noisy or unreliable data points.*
+
 
 *This strategy enables us to select the most robust model for real-time inference and provides a reliable baseline for future improvements.*
 
