@@ -1,4 +1,22 @@
-Original file line numberDiff line numberDiff line change@@ -0,0 +1,92 @@# Real-Time Eye Open / Closed DetectionA real-time eye state detection system using **OpenCV**, **MediaPipe Face Mesh**, and **Random Forest**.The system detects whether the eyes are:- OPEN- CLOSEDIt processes webcam frames in real time, extracts geometric eye features from MediaPipe facial landmarks, classifies the eye state using a trained Random Forest model, applies temporal smoothing using majority voting, and triggers an audio alarm when the eyes remain closed for approximately one second.---## 1. Project OverviewThe objective of this project is to develop a real-time computer vision system capable of detecting eye closure from a standard webcam.The project combines:- Computer Vision- Facial Landmark Detection- Feature Engineering- Machine Learning- Real-Time Classification- Temporal Signal Processing- Audio AlertThe system is designed as a modular pipeline:Webcam → Face Mesh → Eye Landmarks → Feature Extraction → Random Forest → Temporal Filtering → Alarm
+# Machine Learning Eye Closure Alarm 👁️🚨
+
+A real-time Computer Vision system designed to monitor eye state (Open/Closed) and trigger an alarm to prevent fatigue-related incidents (e.g., while driving or studying).
+
+## 🚀 Features
+
+- **Real-time Inference:** Efficient processing using your webcam.
+- **MediaPipe Integration:** Utilizes `MediaPipe Face Mesh` for highly accurate facial landmark detection.
+- **Geometric Feature Engineering:** Extracts 9 precise eye-related geometric features rather than relying on raw pixels.
+- **Machine Learning Powered:** Classification performed by a trained `Random Forest` model.
+- **Temporal Smoothing:** Implements a 5-frame "majority vote" window to prevent flickering and false alarms.
+- **Visual & Audio Feedback:** On-screen status overlay (EAR, prediction, alarm status) + audible alert.
+
+## 🛠 Prerequisites
+
+Ensure you have Python 3.8+ installed. You will need the following libraries:
+```bash
+pip install opencv-python mediapipe scikit-learn numpy
+
 ## 🔬 Technical Deep Dive
 
 ### 📐 9-Feature Geometry
