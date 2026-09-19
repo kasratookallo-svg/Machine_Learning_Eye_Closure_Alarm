@@ -25,12 +25,14 @@ We have implemented a data cleaning pipeline to ensure model robustness:
 - **Outlier Detection:** Filtering out frames with low confidence scores from MediaPipe or extreme geometric values (e.g., face occlusions, rapid motion blur).
 - **Suspicious Samples:** Identifying and removing frames where landmark detection is inconsistent or logically impossible (e.g., implausible aspect ratios), ensuring the Random Forest only trains on clean, reliable data.
 
-## 🤖 Model Training Strategy
-We utilize a dual-model approach to ensure reliability:
-1. **Random Forest Classifier (Primary):** Selected for its high performance on structured geometric data and interpretability. We perform grid search to optimize hyperparameters like `n_estimators` and `max_depth`.
-2. **Support Vector Machine (Secondary/Comparison):** Trained in parallel to compare baseline performance. We use the SVM for cross-validation to ensure the Random Forest is not overfitting to specific lighting conditions.
+## 🧠 Model Training Strategy
+To ensure maximum accuracy and robustness, we have developed and compared two distinct machine learning models:
 
-*This approach allows us to choose the most robust classifier for real-time inference.*
+1. **Random Forest Classifier (Primary):** Selected for its high performance on structured geometric data, ability to handle non-linear relationships, and interpretability. We employed Grid Search to optimize hyperparameters like `n_estimators` and `max_depth`.
+2. **Support Vector Machine (Comparison/Validation):** Trained in parallel as a secondary model to benchmark baseline performance. This dual-model approach allows us to cross-validate results and ensure the primary model is not overfitting to specific lighting conditions or facial structures.
+
+*This strategy enables us to select the most robust model for real-time inference and provides a reliable baseline for future improvements.*
+
 
 
 ## 🛠 Prerequisites
