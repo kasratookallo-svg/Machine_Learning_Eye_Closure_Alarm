@@ -1,23 +1,20 @@
-# Machine Learning Eye Closure Alarm
+## 🔬 Technical Deep Dive
 
-A real-time computer vision system that detects whether a person's eyes are **open** or **closed** using a webcam, MediaPipe Face Mesh, and a trained Random Forest classifier. When closed eyes are detected continuously for about **one second**, the application triggers an audio alarm.
+### 📐 9-Feature Geometry
+Instead of relying on raw pixel data, we extract 9 geometric features that capture the spatial relationship of facial landmarks. These features provide robustness against variations in lighting and head orientation:
+- **Eye Aspect Ratio (EAR):** The primary indicator of eye openness.
+- **Euclidean Distances:** Ratios between vertical and horizontal eyelid landmarks.
+- **Normalized Landmarks:** Relative coordinates to ensure scale invariance.
+- (Additional custom features calculated via MediaPipe Face Mesh to differentiate between squinting and closing).
 
-## 🚨 Features
+### 🧹 Outlier & Suspicious Samples
+We have implemented a data cleaning pipeline to ensure model robustness:
+- **Outlier Detection:** Filtering out frames with low confidence scores from MediaPipe or extreme geometric values (e.g., face occlusions, rapid motion blur).
+- **Suspicious Samples:** Identifying and removing frames where landmark detection is inconsistent or logically impossible (e.g., implausible aspect ratios), ensuring the Random Forest only trains on clean, reliable data.
 
-- 🎥 Real-time webcam inference
-- 👁️ Facial landmark detection with **MediaPipe Face Mesh**
-- 📐 Geometric eye-feature extraction
-- 🤖 Random Forest classification (`OPEN` / `CLOSED`)
-- 🧠 Majority-vote temporal smoothing over a 5-frame window
-- ⏰ Alarm trigger after ~1 second of continuous closed-eye detection
-- 📊 On-screen status overlay (prediction, probabilities, EAR, alarm state)
+### 🤖 Model Training Strategy
+We utilize a dual-model approach to ensure reliability:
+1. **Random Forest Classifier (Primary):** Selected for its high performance on structured geometric data and interpretability. We perform grid search to optimize hyperparameters like `n_estimators` and `max_depth`.
+2. **Support Vector Machine (Secondary/Comparison):** Trained in parallel to compare baseline performance. We use the SVM for cross-validation to ensure the Random Forest is not overfitting to specific lighting conditions.
 
-## 🔄 How It Works
-
-1. **Capture** frames from the webcam.
-2. **Detect** facial landmarks using MediaPipe Face Mesh.
-3. **Extract** 9 eye-related geometric features.
-4. **Classify** the eye state with a pretrained Random Forest model.
-5. **Smooth** predictions with a 5-frame majority vote.
-6. **Start** a closed-eye timer when the state is `CLOSED`.
-7. **Trigger** an audio alarm if closure lasts about 1 second.
+*This approach allows us to choose the most robust classifier for real-time inference.*
